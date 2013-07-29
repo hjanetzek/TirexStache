@@ -1,0 +1,4 @@
+#!/bin/sh
+
+export PYTHONPATH=/home/jeff/git/TileStache
+exec python /home/jeff/workspace/PyTirex/Tirex/__init__.py  
