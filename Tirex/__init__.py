@@ -21,8 +21,8 @@ import tempfile
 # and METATILE(x) in render_config.h of mod_tile (8 is hardcoded)
 METATILE_SIZE = 2
 
-# layer 'name' defined in tilestache.cfg must match tirex map 'name'
-TILESTACHE_CFG = "/home/jeff/workspace/PyTirex/conf/tilestache.cfg"
+# layer 'name' defined in layers.cfg must match tirex map 'name'
+TILESTACHE_CFG = "/etc/tirex/renderer/stache_layers.cfg"
 
 TILEDIR = "/var/lib/tirex/tiles"
 
@@ -188,10 +188,9 @@ def xyz_to_path(x, y, z):
 if __name__ == '__main__':
     import Backend
     
-    b = Backend.TileStacheBackend(TILESTACHE_CFG)
-    
-    # not started from tirex: just testing layers
     if os.environ.get("TIREX_BACKEND_NAME") == None:
+        # not started from tirex: just testing layers
+        b = Backend.TileStacheBackend("./cfg/renderer/stache_layers.cfg")
         t = Tirex(b, True)
         request = {'map': 'osm', 'prio': '1', 
                    'y': '0', 'x': '0', 'z': '2', 
@@ -199,8 +198,10 @@ if __name__ == '__main__':
                    'id': '1375054837_19944984'}
         t.process_render_request(request)
         exit(0)
-    
-    t = Tirex(b)
-    t.run()    
-    
+    else:
+        # run the backend process
+        b = Backend.TileStacheBackend(TILESTACHE_CFG)
+        t = Tirex(b)
+        t.run()    
+        
     
