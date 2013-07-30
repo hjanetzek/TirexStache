@@ -26,8 +26,6 @@ TILESTACHE_CFG = "/etc/tirex/renderer/stache_layers.cfg"
 
 TILEDIR = "/var/lib/tirex/tiles"
 
-DBG_TILEDIR = "/home/jeff/workspace/PyTirex/tiles"
-
 # As defined by Tirex::MAX_PACKET_SIZE
 MAX_PACKET_SIZE = 512
 
@@ -54,7 +52,7 @@ class Tirex:
         self.debug = testing or self.config["debug"]  == "1"
         
         if testing:
-            self.tiledir = DBG_TILEDIR
+            self.tiledir = "%s/tiles" % os.getcwd()
             return
 
         self.tiledir = TILEDIR
@@ -190,9 +188,9 @@ if __name__ == '__main__':
     
     if os.environ.get("TIREX_BACKEND_NAME") == None:
         # not started from tirex: just testing layers
-        b = Backend.TileStacheBackend("./cfg/renderer/stache_layers.cfg")
+        b = Backend.TileStacheBackend("%s/cfg/renderer/stache_layers.cfg" % os.getcwd())
         t = Tirex(b, True)
-        request = {'map': 'osm', 'prio': '1', 
+        request = {'map': 'proxy', 'prio': '1', 
                    'y': '0', 'x': '0', 'z': '2', 
                    'type': 'metatile_render_request', 
                    'id': '1375054837_19944984'}
