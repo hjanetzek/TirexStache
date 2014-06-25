@@ -1,7 +1,9 @@
-Work in progress, but WFM :)
+TirexStache is a Tirex backend to render TileStache layers
 
+* setup Tirex http://wiki.openstreetmap.org/wiki/Tirex
 * see configuration and comments in `__init__.py`
 * change paths in `renderer` (this is the executable called by tirex-backend-manager) 
+* change 'path' in cfg/renderer/stache.conf to point to 'renderer'
 * cfg contains an example configuration for osm-proxy and vector-tiles.
 * test the setup with:
 
@@ -15,3 +17,4 @@ find /var/lib/tirex/tiles/
 
 The vector-tiles provider is available at:
 https://github.com/opensciencemap/TileStache/tree/master/TileStache/OSciMap4
+
